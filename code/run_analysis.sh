@@ -11,7 +11,7 @@ set -e
 cd "$(dirname "$0")"
 PY=${PYTHON:-python}
 $PY analyze_r1.py ../runs ../results/analysis
-$PY make_r1_tables.py ../runs ../results/tables
+$PY make_r1_tables.py ../runs ../results/tables   # LaTeX tables, not kept in the repository
 $PY best_feasible_all.py ../runs ../results/analysis
 $PY analyze_confirm.py ../runs ../results/analysis > ../results/analysis/confirm_summary.txt
-echo 'tables in results/tables, statistics in results/analysis'
+echo 'statistics in results/analysis, tables in results/tables'

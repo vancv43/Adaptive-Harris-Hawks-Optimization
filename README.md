@@ -250,7 +250,7 @@ The primary measure on the CEC functions is the mean of log10(error + 10<sup>-8<
 
 </details>
 
-The per-function statistics of CEC2017 and CEC2020, the penalized fitness of the engineering problems and the best designs are in `results/tables/` and `results/analysis/`.
+The per-function statistics of CEC2017 and CEC2020, the penalized fitness of the engineering problems and the best designs are in `results/analysis/`.
 
 ## Reproducing the study
 ```bash
@@ -258,7 +258,7 @@ pip install -r requirements.txt
 bash code/run_analysis.sh      # every table of the paper from the saved runs
 bash code/run_all.sh           # every optimization run, then the analysis
 ```
-`run_analysis.sh` reads only `runs/` and writes `results/`. The runs of the paper used Python 3.13, NumPy 2.1.3, SciPy 1.16.3 and opfunu 1.0.4; opfunu declares an older Python and may need `pip install --ignore-requires-python opfunu==1.0.4`. Seeds are fixed per run and problem and are identical across optimizers, see Appendix A of the paper.
+`run_analysis.sh` reads only `runs/` and writes the statistics to `results/analysis/` and the tables of the paper to `results/tables/`. The runs of the paper used Python 3.13, NumPy 2.1.3, SciPy 1.16.3 and opfunu 1.0.4; opfunu declares an older Python and may need `pip install --ignore-requires-python opfunu==1.0.4`. Seeds are fixed per run and problem and are identical across optimizers, see Appendix A of the paper.
 
 | Script | Purpose |
 |---|---|
@@ -282,8 +282,7 @@ runs/       per-run results: best value, error, evaluations, convergence curve, 
   sens-s*/    one-factor-at-a-time sensitivity, 10,080 runs
   conf-s*/    confirmation of fraction 1 on fresh seeds, 1,440 runs
 results/
-  analysis/   statistics as CSV
-  tables/     the LaTeX tables of the paper, regenerated from runs/
+  analysis/   statistics behind every table of the paper, as CSV
 logs/       run logs with the audit tests and objective checks of each shard
 figures/    figures of the paper, vector PDF; png/ holds 300-dpi copies shown on this page
 ```
