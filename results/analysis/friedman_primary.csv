@@ -1,0 +1,13 @@
+config,mean_rank
+ABC,1.6
+GA,3.3
+GCHHO,3.35
+ACO,3.95
+PSO,5.05
+AHHO,5.5
+GWO,5.85
+HHO,8.0
+SCSO,8.8
+BAT,9.9
+AOA,10.85
+m-HHO,11.85

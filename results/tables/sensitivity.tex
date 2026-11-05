@@ -1,0 +1,28 @@
+\begin{table}[htbp]
+\caption{One-factor-at-a-time sensitivity of AHHO}\label{tab:sensitivity}
+\centering
+\begin{tabular}{lccccc}
+\toprule
+Setting & Rank, CEC Suites & Better than default & $p$ Holm & Rank, engineering \\
+\midrule
+$\alpha=0.25$ & 6.60 & 15/20 & 0.207 & 10.00 \\
+$\alpha=1$ & 7.65 & 10/20 & 1.000 & 9.50 \\
+$p=0.15$ & 11.25 & 5/20 & 0.017 & 11.00 \\
+$p=0.6$ & 5.30 & 17/20 & 0.053 & 10.25 \\
+$\beta_{max}=0.25$ & 8.05 & 12/20 & 1.000 & 10.50 \\
+$\beta_{max}=1$ & 8.50 & 10/20 & 1.000 & 8.25 \\
+$\beta_{min}=0.01$ & 8.40 & 11/20 & 1.000 & 7.25 \\
+$\beta_{min}=0.1$ & 6.60 & 14/20 & 0.154 & 6.50 \\
+$\delta=0$ & 11.50 & 5/20 & 0.138 & 4.25 \\
+$\delta=10^{-4}$ & 8.80 & 8/20 & 1.000 & 4.25 \\
+$\delta=10^{-2}$ & 8.65 & 12/20 & 1.000 & 7.75 \\
+fraction 0.25 & 12.60 & 3/20 & 0.001 & 13.00 \\
+fraction 0.75 & 4.50 & 17/20 & 0.056 & 7.25 \\
+fraction 1 & 2.80 & 17/20 & 0.009 & 5.50 \\
+Default & 8.80 & -- & -- & 4.75 \\
+\bottomrule
+\end{tabular}
+\vspace{2pt}
+
+{\small Ranks are among the 15 settings. Default: $\alpha=0.5$, $p=0.3$, $\beta_{max}=0.5$, $\beta_{min}=0.05$, $\delta=10^{-3}$, fraction 0.5.}
+\end{table}

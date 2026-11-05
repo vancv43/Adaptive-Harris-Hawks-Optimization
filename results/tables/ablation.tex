@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\caption{Factorial ablation: average ranks among the four variants}\label{tab:ablation-results}
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+Variant & Energy & Perturbation & CEC2017 & CEC2020 & Engineering & $p$ Holm vs AHHO \\
+\midrule
+HHO & No & No & 3.40 & 3.60 & 3.50 & $<$0.001 \\
+AHHO-EnergyOnly & Yes & No & 3.60 & 3.40 & 3.00 & $<$0.001 \\
+AHHO-PerturbOnly & No & Yes & 1.30 & 1.30 & 2.25 & 0.231 \\
+AHHO-Full & Yes & Yes & 1.70 & 1.70 & 1.25 & -- \\
+\bottomrule
+\end{tabular}
+\vspace{2pt}
+
+{\small The $p$ values compare mean log errors over the 20 CEC functions.}
+\end{table}

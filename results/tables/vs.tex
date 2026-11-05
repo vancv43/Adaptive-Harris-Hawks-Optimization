@@ -1,0 +1,27 @@
+\begin{table}[htbp]
+\caption{AHHO against each optimizer}\label{tab:vs}
+\centering
+\small
+\begin{tabular}{lcccccccc}
+\toprule
+ & \multicolumn{3}{c}{CEC2017} & \multicolumn{3}{c}{CEC2020} & Engineering \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-8}
+Optimizer & AHHO better & $p$ Holm & W/T/L & AHHO better & $p$ Holm & W/T/L & W/T/L \\
+\midrule
+GA & 3/10 & 0.697 & 1/2/7 & 2/10 & 0.773 & 2/1/7 & 2/1/1 \\
+PSO & 4/10 & 1.000 & 3/2/5 & 5/10 & 0.967 & 3/2/5 & 1/0/3 \\
+ACO & 2/10 & 0.641 & 2/2/6 & 3/10 & 0.967 & 3/1/6 & 0/3/1 \\
+ABC & 0/10 & 0.021 & 0/1/9 & 0/10 & 0.021 & 0/0/10 & 1/0/3 \\
+BAT & 10/10 & 0.021 & 10/0/0 & 10/10 & 0.021 & 10/0/0 & 4/0/0 \\
+GWO & 5/10 & 1.000 & 4/2/4 & 6/10 & 0.967 & 4/3/3 & 1/0/3 \\
+AOA & 9/10 & 0.023 & 9/1/0 & 10/10 & 0.021 & 10/0/0 & 2/2/0 \\
+SCSO & 10/10 & 0.021 & 9/1/0 & 10/10 & 0.021 & 10/0/0 & 3/1/0 \\
+HHO & 10/10 & 0.021 & 9/1/0 & 10/10 & 0.021 & 9/1/0 & 2/2/0 \\
+GCHHO & 1/10 & 0.023 & 0/4/6 & 0/10 & 0.021 & 0/2/8 & 0/2/2 \\
+m-HHO & 10/10 & 0.021 & 10/0/0 & 10/10 & 0.021 & 10/0/0 & 4/0/0 \\
+\bottomrule
+\end{tabular}
+\vspace{2pt}
+
+{\small AHHO better counts the functions on which AHHO has the lower mean log error. W/T/L counts functions on which AHHO wins, ties or loses in run-level Wilcoxon tests, Holm-corrected within each function.}
+\end{table}
