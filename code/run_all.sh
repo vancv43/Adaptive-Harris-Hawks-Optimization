@@ -1,5 +1,5 @@
 #!/bin/bash
-# Phayung Meesad(1), Van Van Chau(1,2,*), and Tuan Minh Nguyen(2,*)
+# Phayung Meesad(1), Van Van Chau(1,2,*), and Tuan Minh Nguyen(2)
 # (1) Department of Information Technology Management, King Mongkut's University of Technology North Bangkok,
 #     Bangkok, Thailand, phayung.m@itd.kmutnb.ac.th
 # (2) Faculty of Information Technology, Posts and Telecommunications Institute of Technology,

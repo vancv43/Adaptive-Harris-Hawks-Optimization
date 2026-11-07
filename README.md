@@ -3,10 +3,10 @@
 <p align="center"><b>AHHO: A Diversity-Triggered Perturbation and Adaptive-Energy Extension of Harris Hawks Optimization Evaluated on CEC Benchmarks and Engineering Design Problems</b></p>
 
 <p align="center">
-Phayung Meesad<sup>1</sup>, Van Van Chau<sup>1,2,*</sup>, Tuan Minh Nguyen<sup>2,*</sup><br>
+Phayung Meesad<sup>1</sup>, Van Van Chau<sup>1,2,*</sup>, Tuan Minh Nguyen<sup>2</sup><br>
 <sup>1</sup> Department of Information Technology Management, King Mongkut's University of Technology North Bangkok, Bangkok, Thailand<br>
 <sup>2</sup> Faculty of Information Technology, Posts and Telecommunications Institute of Technology, Ho Chi Minh City, Vietnam<br>
-<sup>*</sup> Corresponding authors: vancv@ptit.edu.vn, minhtuan@ptit.edu.vn
+<sup>*</sup> Corresponding author: vancv@ptit.edu.vn
 </p>
 
 <p align="center"><i>Neural Computing and Applications</i>, under review</p>
@@ -20,16 +20,16 @@ Phayung Meesad<sup>1</sup>, Van Van Chau<sup>1,2,*</sup>, Tuan Minh Nguyen<sup>2
 **Contents:** [Abstract](#abstract) · [Contributions](#contributions) · [Method](#method) · [Protocol](#experimental-protocol) · [Results](#results) · [Reproducing](#reproducing-the-study) · [Layout](#repository-layout) · [Citation](#citation)
 
 ## Abstract
-Harris Hawks Optimization (HHO) is a widely used swarm-intelligence method for non-convex black-box problems. Its shift from exploration to exploitation is driven by an escaping energy that decays with time alone, whatever the actual spread of the population. Chaotic, opposition-based and Gaussian-mutation variants change the search operators, yet none of those we reviewed ties this shift to a measured diversity signal. This study proposes Adaptive Harris Hawks Optimization (AHHO). It scales the escaping energy by a normalized diversity statistic computed at every iteration. It also adds a diversity-triggered Gaussian perturbation whose step follows the current population spread, with a nonzero floor that keeps a collapsed swarm moving. AHHO was compared with eleven optimizers, including two HHO variants, on the CEC2017 and CEC2020 suites and on four constrained engineering design problems. Every optimizer received the same number of objective evaluations, and a factorial ablation and a sensitivity study isolated each mechanism. Log-transformed errors were analyzed with Friedman ranks and Holm-corrected Wilcoxon signed-rank tests. AHHO outperformed the original algorithm on both numerical suites and never lost to it on the engineering problems. It was also significantly better than several established baselines, although it ranked sixth of twelve optimizers overall. The ablation showed that the perturbation, not the energy coupling, accounts for most of the gain. AHHO is therefore a diversity-aware refinement of HHO rather than a new best optimizer, and the ablation identifies which of its two mechanisms carries the improvement.
+Harris Hawks Optimization is a widely used swarm-intelligence method for non-convex black-box problems. Its shift from exploration to exploitation is driven by an escaping energy that decays with time alone, whatever the actual spread of the population. Chaotic, opposition-based and Gaussian-mutation variants change the search operators, yet none of those we reviewed ties this shift to a measured diversity signal. This study proposes Adaptive Harris Hawks Optimization (AHHO). It recomputes a normalized diversity statistic each iteration and uses it to scale the escaping energy. It also adds a diversity-triggered Gaussian perturbation whose step follows the current population spread, with a nonzero floor that keeps a collapsed swarm moving. AHHO was compared with eleven optimizers, including two HHO variants, on the CEC2017 and CEC2020 suites and on four constrained engineering design problems. All optimizers ran on the same budget of objective evaluations. We isolated each mechanism with a factorial ablation and a sensitivity study, and compared log-transformed errors using Friedman ranks and Wilcoxon signed-rank tests with Holm correction. On both numerical suites AHHO beat the original algorithm, and it never lost to it on the engineering problems. Several established baselines were also significantly worse than AHHO. Overall, however, it ranked sixth of twelve. Most of the gain came from the perturbation, while the energy coupling added little. We therefore present AHHO as a diversity-aware refinement of HHO, not as a new best optimizer. The ablation also shows which of its two mechanisms does the work.
 
 ## Contributions
 1. AHHO is proposed, introducing a diversity-modulated escaping-energy mechanism and a diversity-triggered adaptive perturbation that is explicitly scaled by the current population spread rather than the full search-space range, with a nonzero floor that keeps it active in a collapsed swarm.
 2. AHHO is benchmarked against eleven optimizers, namely GA, PSO, GWO, ACO, ABC, BAT, AOA, SCSO, the original HHO and two HHO variants, on ten CEC2017 functions at dimension 30 spanning unimodal, multimodal, hybrid, and composition categories. Each function–algorithm pair uses 30 independent runs under an identical, exactly enforced evaluation budget.
 3. The same protocol is independently replicated on all ten functions of the CEC2020 numerical benchmark suite without retuning any parameter, providing a cross-suite robustness check on AHHO's relative ranking against the same eleven optimizers.
 4. AHHO is further evaluated on four classic constrained engineering design problems, namely pressure vessel, welded beam, tension/compression spring, and speed reducer design. Original objective, penalized fitness, maximum constraint violation and feasibility rate are reported separately, providing preliminary evidence of behavior beyond synthetic numerical functions.
-5. A factorial ablation study isolates the individual and joint contribution of the two proposed mechanisms relative to the original HHO, and a one-factor-at-a-time sensitivity study shows that making every hawk except the best eligible for perturbation is significantly better than the default median split, which a separate run on new seeds confirmed.
-6. The diversity statistic is analyzed formally, including its upper bound and its behavior in collapsed and widely spread populations, and a controlled collapse experiment tests the perturbation floor.
-7. Performance differences are assessed on log-transformed errors with a non-parametric statistical protocol, the Friedman test followed by Holm-corrected pairwise Wilcoxon signed-rank tests, rather than relying on mean performance alone.
+5. A factorial ablation measures what each of the two mechanisms contributes, alone and together, relative to the original HHO. A one-factor-at-a-time sensitivity study adds a further finding. When every hawk except the best may be perturbed, AHHO does significantly better than with the default median split, and a separate run on new seeds confirmed this.
+6. We analyze the diversity statistic formally and give its upper bound and its values for collapsed and widely spread populations. A controlled collapse experiment then tests the perturbation floor.
+7. Performance is compared on log-transformed errors, not on mean values alone. The Friedman test is applied first, and pairwise Wilcoxon signed-rank tests with Holm correction follow.
 
 ## Method
 AHHO keeps every operator of HHO and adds two modifications. The escaping energy is multiplied by a factor that grows with a normalized population-diversity statistic D(t), and a diversity-triggered Gaussian perturbation moves the worse hawks with a step that follows the current population spread, floored at δ times the search range. The statistic, the spread and the fitness ranking are computed from the population at the start of each iteration.
@@ -44,6 +44,7 @@ AHHO keeps every operator of HHO and adds two modifications. The escaping energy
 <p align="center"><em>Fig. 3a. Soft besiege with progressive rapid dives</em> &nbsp; <a href="figures/fig3a_soft_besiege_dive.pdf">[PDF]</a></p>
 <p align="center"><img src="figures/png/fig3b_hard_besiege.png" width="48%"></p>
 <p align="center"><em>Fig. 3b. Hard besiege</em> &nbsp; <a href="figures/fig3b_hard_besiege.pdf">[PDF]</a></p>
+<p align="center"><em>Fig. 3. Two besiege moves of HHO, redrawn after Heidari et al. (2019)</em></p>
 
 <p align="center"><img src="figures/png/fig4_energy_envelope.png" width="70%"></p>
 <p align="center"><em>Fig. 4. Energy ceiling of HHO, AHHO and m-HHO</em> &nbsp; <a href="figures/fig4_energy_envelope.pdf">[PDF]</a></p>
@@ -55,7 +56,7 @@ AHHO keeps every operator of HHO and adds two modifications. The escaping energy
 <p align="center"><em>Fig. 6. Perturbed hawks and opposite solutions per iteration</em> &nbsp; <a href="figures/fig6_perturbed_hawks.pdf">[PDF]</a></p>
 
 <p align="center"><img src="figures/png/fig7_ahho_architecture.png" width="65%"></p>
-<p align="center"><em>Fig. 7. Overall AHHO workflow</em> &nbsp; <a href="figures/fig7_ahho_architecture.pdf">[PDF]</a></p>
+<p align="center"><em>Fig. 7. Overall AHHO Workflow</em> &nbsp; <a href="figures/fig7_ahho_architecture.pdf">[PDF]</a></p>
 
 ## Experimental protocol
 | Part | Problems | Budget | Runs |
@@ -117,7 +118,7 @@ The primary measure on the CEC functions is the mean of log10(error + 10<sup>-8<
 <p><i>Note.</i> AHHO better counts the functions on which AHHO has the lower mean log error. W/T/L counts functions on which AHHO wins, ties or loses in run-level Wilcoxon tests, Holm-corrected within each function.</p>
 
 <p align="center"><img src="figures/png/fig8_convergence.png" width="100%"></p>
-<p align="center"><em>Fig. 8. Mean convergence of the twelve optimizers</em> &nbsp; <a href="figures/fig8_convergence.pdf">[PDF]</a></p>
+<p align="center"><em>Fig. 8. Average convergence curves of the twelve optimizers</em> &nbsp; <a href="figures/fig8_convergence.pdf">[PDF]</a></p>
 
 <p><b>Table 12.</b> Factorial ablation: average ranks among the four variants</p>
 
@@ -126,8 +127,8 @@ The primary measure on the CEC functions is the mean of log10(error + 10<sup>-8<
 <tr><th align="left">Variant</th><th align="center">Energy</th><th align="center">Perturbation</th><th align="center">CEC2017</th><th align="center">CEC2020</th><th align="center">Engineering</th><th align="center"><i>p</i> Holm vs AHHO</th></tr>
 </thead>
 <tbody>
-<tr><td align="left">HHO</td><td align="right">No</td><td align="right">No</td><td align="right">3.40</td><td align="right">3.60</td><td align="right">3.50</td><td align="right"><0.001</td></tr>
-<tr><td align="left">AHHO-EnergyOnly</td><td align="right">Yes</td><td align="right">No</td><td align="right">3.60</td><td align="right">3.40</td><td align="right">3.00</td><td align="right"><0.001</td></tr>
+<tr><td align="left">HHO</td><td align="right">No</td><td align="right">No</td><td align="right">3.40</td><td align="right">3.60</td><td align="right">3.50</td><td align="right">&lt;0.001</td></tr>
+<tr><td align="left">AHHO-EnergyOnly</td><td align="right">Yes</td><td align="right">No</td><td align="right">3.60</td><td align="right">3.40</td><td align="right">3.00</td><td align="right">&lt;0.001</td></tr>
 <tr><td align="left">AHHO-PerturbOnly</td><td align="right">No</td><td align="right">Yes</td><td align="right">1.30</td><td align="right">1.30</td><td align="right">2.25</td><td align="right">0.231</td></tr>
 <tr><td align="left">AHHO-Full</td><td align="right">Yes</td><td align="right">Yes</td><td align="right">1.70</td><td align="right">1.70</td><td align="right">1.25</td><td align="right">–</td></tr>
 </tbody>
@@ -175,12 +176,12 @@ The primary measure on the CEC functions is the mean of log10(error + 10<sup>-8<
 <tr><th align="left">Function</th><th align="center">HHO</th><th align="center">δ=0</th><th align="center"><i>p</i> Holm</th><th align="center">δ=10<sup>-2</sup></th><th align="center"><i>p</i> Holm</th><th align="center">δ=10<sup>-3</sup></th><th align="center"><i>p</i> Holm</th></tr>
 </thead>
 <tbody>
-<tr><td align="left">CEC2017 F5 [F6]</td><td align="right">1.951E-03</td><td align="right">1.229E-03</td><td align="right">0.048</td><td align="right">6.151E-04</td><td align="right">0.001</td><td align="right">4.291E-04</td><td align="right"><0.001</td></tr>
-<tr><td align="left">CEC2017 F7 [F8]</td><td align="right">6.631E+02</td><td align="right">5.995E+02</td><td align="right">0.043</td><td align="right">6.003E+02</td><td align="right"><0.001</td><td align="right">5.935E+02</td><td align="right">0.001</td></tr>
+<tr><td align="left">CEC2017 F5 [F6]</td><td align="right">1.951E-03</td><td align="right">1.229E-03</td><td align="right">0.048</td><td align="right">6.151E-04</td><td align="right">0.001</td><td align="right">4.291E-04</td><td align="right">&lt;0.001</td></tr>
+<tr><td align="left">CEC2017 F7 [F8]</td><td align="right">6.631E+02</td><td align="right">5.995E+02</td><td align="right">0.043</td><td align="right">6.003E+02</td><td align="right">&lt;0.001</td><td align="right">5.935E+02</td><td align="right">0.001</td></tr>
 <tr><td align="left">CEC2017 F9 [F10]</td><td align="right">4.314E+03</td><td align="right">4.116E+03</td><td align="right">0.868</td><td align="right">3.983E+03</td><td align="right">0.079</td><td align="right">4.196E+03</td><td align="right">0.868</td></tr>
 <tr><td align="left">CEC2017 F21 [F22]</td><td align="right">3.305E+03</td><td align="right">3.079E+03</td><td align="right">0.225</td><td align="right">2.961E+03</td><td align="right">0.166</td><td align="right">3.114E+03</td><td align="right">0.868</td></tr>
 <tr><td align="left">CEC2020 F2</td><td align="right">4.739E+03</td><td align="right">4.454E+03</td><td align="right">0.368</td><td align="right">4.251E+03</td><td align="right">0.057</td><td align="right">4.310E+03</td><td align="right">0.010</td></tr>
-<tr><td align="left">CEC2020 F3</td><td align="right">7.431E+04</td><td align="right">1.748E+04</td><td align="right"><0.001</td><td align="right">6.164E+02</td><td align="right"><0.001</td><td align="right">7.869E+03</td><td align="right"><0.001</td></tr>
+<tr><td align="left">CEC2020 F3</td><td align="right">7.431E+04</td><td align="right">1.748E+04</td><td align="right">&lt;0.001</td><td align="right">6.164E+02</td><td align="right">&lt;0.001</td><td align="right">7.869E+03</td><td align="right">&lt;0.001</td></tr>
 <tr><td align="left">Minimum logged D(t)</td><td align="right">–</td><td align="right">4.011E-18</td><td align="right"></td><td align="right">9.141E-09</td><td align="right"></td><td align="right">9.141E-09</td><td align="right"></td></tr>
 </tbody>
 </table>
@@ -258,7 +259,7 @@ pip install -r requirements.txt
 bash code/run_analysis.sh      # every table of the paper from the saved runs
 bash code/run_all.sh           # every optimization run, then the analysis
 ```
-`run_analysis.sh` reads only `runs/` and writes the statistics to `results/analysis/` and the tables of the paper to `results/tables/`. The runs of the paper used Python 3.13, NumPy 2.1.3, SciPy 1.16.3 and opfunu 1.0.4; opfunu declares an older Python and may need `pip install --ignore-requires-python opfunu==1.0.4`. Seeds are fixed per run and problem and are identical across optimizers, see Appendix A of the paper.
+`run_analysis.sh` reads only `runs/` and writes the statistics to `results/analysis/` and the tables of the paper to `results/tables/`. The runs of the paper used Python 3.13.15, and Python 3.13.18 for the confirmation run, with NumPy 2.1.3, SciPy 1.16.3 and opfunu 1.0.4; opfunu declares an older Python and may need `pip install --ignore-requires-python opfunu==1.0.4`. Seeds are fixed per run and problem and are identical across optimizers, see Appendix A of the paper.
 
 | Script | Purpose |
 |---|---|
@@ -294,4 +295,4 @@ No external data set is used. The CEC2017 and CEC2020 functions are those of the
 The article is under review at *Neural Computing and Applications*. Until it is published, please cite this repository; see `CITATION.cff`.
 
 ## Contact
-Van Van Chau, vancv@ptit.edu.vn; Tuan Minh Nguyen, minhtuan@ptit.edu.vn
+Van Van Chau, corresponding author, vancv@ptit.edu.vn
